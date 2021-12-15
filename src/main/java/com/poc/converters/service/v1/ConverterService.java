@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.poc.converters.converters.PersonConverter;
 import com.poc.converters.model.dto.PersonRequestDTO;
 import com.poc.converters.model.v1.vo.PersonVo;
 
@@ -16,14 +17,16 @@ import com.poc.converters.model.v1.vo.PersonVo;
 public class ConverterService {
 
 	private final ModelMapper mapper;
+	private final PersonConverter converter;
 
 	@Autowired
-	public ConverterService(ModelMapper mapper) {
+	public ConverterService(ModelMapper mapper, PersonConverter converter) {
 
 		this.mapper = mapper;
+		this.converter = converter;
 	}
 
-	public List<PersonVo> convertToPersonVo(List<PersonRequestDTO> persons) {
+	public List<PersonVo> convertToPersonVoUsingModelMapper(List<PersonRequestDTO> persons) {
 
 		List<PersonVo> personVos = new ArrayList<>();
 
@@ -33,4 +36,16 @@ public class ConverterService {
 
 		return personVos;
 	}
+
+	public List<PersonVo> convertToPersonVoUsingConversionService(List<PersonRequestDTO> persons) {
+
+		List<PersonVo> personVos = new ArrayList<>();
+
+		persons.forEach(personVo ->
+				personVos.add(converter.getPersonVo(getComplePersonFact(personVo.getName(), personVo.getAge(), personVo.getCpf()))
+		));
+
+		return personVos;
+	}
+
 }

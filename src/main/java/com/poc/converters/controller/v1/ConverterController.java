@@ -1,6 +1,7 @@
-package com.poc.converters.controller;
+package com.poc.converters.controller.v1;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.validation.Valid;
 
@@ -18,11 +19,13 @@ import com.poc.converters.model.v1.vo.PersonVo;
 import com.poc.converters.service.v1.ConverterService;
 
 import io.swagger.annotations.Api;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Api(tags = "Converter API")
 @RequestMapping("/v1/converter")
 @CrossOrigin(origins = "*")
+@Slf4j
 public class ConverterController {
 
 	private final ConverterService converterService;
@@ -33,9 +36,25 @@ public class ConverterController {
 		this.converterService = converterService;
 	}
 
-	@PostMapping
+	@PostMapping(path = "/model-mapper")
 	@ResponseStatus(HttpStatus.CREATED)
-	public List<PersonVo> convertPersonFactToPersonVo(@Valid @RequestBody List<PersonRequestDTO> personRequestDTOS) {
-		return converterService.convertToPersonVo(personRequestDTOS);
+	public List<PersonVo> convertPersonFactToPersonVoWithModelMapper(@Valid @RequestBody List<PersonRequestDTO> personRequestDTOS) {
+
+		long start = System.currentTimeMillis();
+		List<PersonVo> personVos = converterService.convertToPersonVoUsingModelMapper(personRequestDTOS);
+		long end = System.currentTimeMillis();
+		log.info("Round trip response time = " + (end - start) + " millis");
+		return personVos;
+	}
+
+	@PostMapping(path = "/conversion-service")
+	@ResponseStatus(HttpStatus.CREATED)
+	public List<PersonVo> convertPersonFactToPersonVoWithConversionService(@Valid @RequestBody List<PersonRequestDTO> personRequestDTOS) {
+
+		long start = System.currentTimeMillis();
+		List<PersonVo> personVos = converterService.convertToPersonVoUsingConversionService(personRequestDTOS);
+		long end = System.currentTimeMillis();
+		log.info("Round trip response time = " + (end - start) + " millis");
+		return personVos;
 	}
 }
