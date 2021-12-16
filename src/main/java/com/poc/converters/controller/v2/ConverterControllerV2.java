@@ -1,4 +1,4 @@
-package com.poc.converters.controller.v1;
+package com.poc.converters.controller.v2;
 
 import java.util.List;
 
@@ -15,32 +15,34 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.poc.converters.model.dto.PersonRequestDTO;
 import com.poc.converters.model.v1.vo.PersonVo;
+import com.poc.converters.model.v2.vo.PersonVoV2;
 import com.poc.converters.service.v1.ConverterService;
+import com.poc.converters.service.v2.ConverterServiceV2;
 
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Api(tags = "Converter API")
-@RequestMapping("/v1")
+@RequestMapping("/v2")
 @CrossOrigin(origins = "*")
 @Slf4j
-public class ConverterController {
+public class ConverterControllerV2 {
 
-	private final ConverterService converterService;
+	private final ConverterServiceV2 converterService;
 
 	@Autowired
-	public ConverterController(ConverterService converterService) {
+	public ConverterControllerV2(ConverterServiceV2 converterService) {
 
 		this.converterService = converterService;
 	}
 
 	@PostMapping(path = "/model-mapper")
 	@ResponseStatus(HttpStatus.CREATED)
-	public List<PersonVo> convertPersonFactToPersonVoWithModelMapper(@Valid @RequestBody List<PersonRequestDTO> personRequestDTOS) {
+	public List<PersonVoV2> convertPersonFactToPersonVoWithModelMapper(@Valid @RequestBody List<PersonRequestDTO> personRequestDTOS) {
 
 		long start = System.currentTimeMillis();
-		List<PersonVo> personVos = converterService.convertToPersonVoUsingModelMapper(personRequestDTOS);
+		List<PersonVoV2> personVos = converterService.convertToPersonVoUsingModelMapper(personRequestDTOS);
 		long end = System.currentTimeMillis();
 		log.info("Round trip response time = " + (end - start) + " millis");
 		return personVos;
@@ -48,10 +50,10 @@ public class ConverterController {
 
 	@PostMapping(path = "/conversion-service")
 	@ResponseStatus(HttpStatus.CREATED)
-	public List<PersonVo> convertPersonFactToPersonVoWithConversionService(@Valid @RequestBody List<PersonRequestDTO> personRequestDTOS) {
+	public List<PersonVoV2> convertPersonFactToPersonVoWithConversionService(@Valid @RequestBody List<PersonRequestDTO> personRequestDTOS) {
 
 		long start = System.currentTimeMillis();
-		List<PersonVo> personVos = converterService.convertToPersonVoUsingConversionService(personRequestDTOS);
+		List<PersonVoV2> personVos = converterService.convertToPersonVoUsingConversionService(personRequestDTOS);
 		long end = System.currentTimeMillis();
 		log.info("Round trip response time = " + (end - start) + " millis");
 		return personVos;

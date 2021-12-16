@@ -1,6 +1,6 @@
 package com.poc.converters.service.v1;
 
-import static com.poc.converters.factory.PersonFactFactory.getComplePersonFact;
+import static com.poc.converters.factory.v1.PersonFactFactory.getComplePersonFact;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.poc.converters.converters.PersonConverter;
+import com.poc.converters.converters.v1.PersonConverter;
 import com.poc.converters.model.dto.PersonRequestDTO;
 import com.poc.converters.model.v1.vo.PersonVo;
 

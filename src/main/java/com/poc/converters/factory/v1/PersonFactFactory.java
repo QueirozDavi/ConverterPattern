@@ -1,4 +1,4 @@
-package com.poc.converters.factory;
+package com.poc.converters.factory.v1;
 
 import java.util.List;
 
@@ -17,10 +17,10 @@ public class PersonFactFactory {
 
 	public static List<AddressFact> getAddresses() {
 
-		AddressFact aF1 = new AddressFact("Street 1", "20", 53090678, true, COMPLEMENT, REFERENCE, "+55(11)96745-3443");
-		AddressFact aF2 = new AddressFact("Street 2", "30", 53090679, false, COMPLEMENT, REFERENCE, "+55(11)96745-9098");
-		AddressFact aF3 = new AddressFact("Street 3", "40", 53090680, false, COMPLEMENT, REFERENCE, "+55(11)96745-0000");
+		AddressFact addressFact = new AddressFact("Street 1", "20", 53090678, true, COMPLEMENT, REFERENCE, "+55(11)96745-3443");
+		AddressFact addressFact2 = new AddressFact("Street 2", "30", 53090679, false, COMPLEMENT, REFERENCE, "+55(11)96745-9098");
+		AddressFact addressFact3 = new AddressFact("Street 3", "40", 53090680, false, COMPLEMENT, REFERENCE, "+55(11)96745-0000");
 
-		return List.of(aF1, aF2, aF3);
+		return List.of(addressFact, addressFact2, addressFact3);
 	}
 }

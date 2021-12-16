@@ -2,6 +2,7 @@ package com.poc.converters.util;
 
 import java.util.Objects;
 
+import com.poc.converters.model.Address;
 import com.poc.converters.model.v1.fact.AddressFact;
 import com.poc.converters.model.v1.vo.AddressVo;
 

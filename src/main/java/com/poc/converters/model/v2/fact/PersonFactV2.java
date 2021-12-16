@@ -1,6 +1,10 @@
-package com.poc.converters.model;
+package com.poc.converters.model.v2.fact;
 
 import java.util.List;
+
+import javax.validation.constraints.NotNull;
+
+import com.poc.converters.model.Address;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,10 +15,13 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Person {
+public class PersonFactV2 {
 
+	@NotNull
 	private String name;
+	@NotNull
 	private int age;
+	@NotNull
 	private String cpf;
 	private List<Address> addresses;
 
