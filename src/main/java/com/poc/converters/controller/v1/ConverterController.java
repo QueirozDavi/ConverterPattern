@@ -37,23 +37,21 @@ public class ConverterController {
 
 	@PostMapping(path = "/model-mapper")
 	@ResponseStatus(HttpStatus.CREATED)
-	public List<PersonVo> convertPersonFactToPersonVoWithModelMapper(@Valid @RequestBody List<PersonRequestDTO> personRequestDTOS) {
+	public String convertPersonFactToPersonVoWithModelMapper(@Valid @RequestBody List<PersonRequestDTO> personRequestDTOS) {
 
 		long start = System.currentTimeMillis();
-		List<PersonVo> personVos = converterService.convertToPersonVoUsingModelMapper(personRequestDTOS);
+		converterService.convertToPersonVoUsingModelMapper(personRequestDTOS);
 		long end = System.currentTimeMillis();
-		log.info("Round trip response time = " + (end - start) + " millis");
-		return personVos;
+		return "Round trip response time = " + (end - start) + " millis";
 	}
 
 	@PostMapping(path = "/conversion-service")
 	@ResponseStatus(HttpStatus.CREATED)
-	public List<PersonVo> convertPersonFactToPersonVoWithConversionService(@Valid @RequestBody List<PersonRequestDTO> personRequestDTOS) {
+	public String convertPersonFactToPersonVoWithConversionService(@Valid @RequestBody List<PersonRequestDTO> personRequestDTOS) {
 
 		long start = System.currentTimeMillis();
-		List<PersonVo> personVos = converterService.convertToPersonVoUsingConversionService(personRequestDTOS);
+		converterService.convertToPersonVoUsingConversionService(personRequestDTOS);
 		long end = System.currentTimeMillis();
-		log.info("Round trip response time = " + (end - start) + " millis");
-		return personVos;
+		return "Round trip response time = " + (end - start) + " millis";
 	}
 }
